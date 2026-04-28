@@ -9,7 +9,7 @@ public:
     }
 };
 
-extern "C" const Board* create_board() {
+extern "C" void* create_board() {
     static KewCustomS3Board board;
-    return &board;
+    return (void*)&board;
 }
