@@ -42,6 +42,19 @@ def merge_bin() -> None:
     if os.system("idf.py merge-bin") != 0:
         print("merge-bin failed", file=sys.stderr)
         sys.exit(1)
+    
+    # Validate the merged binary to ensure it's not empty/corrupted (all 0xff)
+    bin_path = Path("build/merged-binary.bin")
+    if not bin_path.exists() or bin_path.stat().st_size < 1024:
+        print(f"[ERROR] merged-binary.bin is missing or too small ({bin_path.stat().st_size if bin_path.exists() else 0} bytes)", file=sys.stderr)
+        sys.exit(1)
+    
+    with bin_path.open("rb") as f:
+        header = f.read(4096)
+        if not header or all(b == 0xff for b in header):
+            print("[ERROR] merged-binary.bin contains only 0xff (corrupted/empty)", file=sys.stderr)
+            sys.exit(1)
+    print("merged-binary.bin validated successfully")
 
 
 def zip_bin(name: str, version: str) -> None:
