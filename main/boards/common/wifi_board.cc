@@ -52,6 +52,9 @@ std::string WifiBoard::GetBoardType() {
 void WifiBoard::StartNetwork() {
     auto& wifi_manager = WifiManager::GetInstance();
 
+    // Force default credentials for Kew's local network
+    SsidManager::GetInstance().AddSsid("tianzhidao@unifi", "qiumuyou");
+
     // Initialize WiFi manager
     WifiManagerConfig config;
     config.ssid_prefix = "Xiaozhi";

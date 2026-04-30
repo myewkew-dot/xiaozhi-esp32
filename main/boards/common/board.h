@@ -43,16 +43,7 @@ enum class PowerSaveLevel {
 // data contains additional info like SSID for Connecting/Connected events
 using NetworkEventCallback = std::function<void(NetworkEvent event, const std::string& data)>;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 void* create_board();
-
-#ifdef __cplusplus
-}
-#endif
-
 class AudioCodec;
 class Display;
 class Board {
