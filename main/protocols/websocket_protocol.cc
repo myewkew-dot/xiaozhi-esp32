@@ -84,7 +84,7 @@ bool WebsocketProtocol::OpenAudioChannel() {
     Settings settings("websocket", false);
     std::string url = settings.GetString("url");
     if (url.empty()) {
-        url = "ws://192.168.0.24:8000/xiaozhi/v1/";
+        url = "ws://192.168.0.24:8989/xiaozhi/v1/";
         ESP_LOGI(TAG, "No server URL found in NVS, using local default: %s", url.c_str());
     }
     std::string token = settings.GetString("token");
